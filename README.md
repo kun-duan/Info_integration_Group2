@@ -7,3 +7,4 @@
 建一个自己提交代码的分支：git checkout -b wkh(建议使用名字的缩写)
 
 每次提交换到自己的分支：git checkout wkh
+
