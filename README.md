@@ -1,2 +1,1 @@
 # Info_integration_Group2
-信息系统集成与应用实习课，第二组实习项目
