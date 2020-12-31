@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8"/>
+    <script type="text/javascript" src="../static/js/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css"/>
+    <!--设置页面的宽度随着使用者的设备变化二变化 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <style type="text/css" media="screen">
+        input, button {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        .container_search {
+            margin: 30px auto 40px auto;
+            width: 800px;
+            text-align: center;
+        }
+
+        input[type=text] {
+            font-size: 13px;
+            min-height: 32px;
+            margin: 0;
+            padding: 7px 8px;
+            outline: none;
+            color: #333;
+            background-color: #fff;
+            background-position: right center;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            transition: all 0.15s ease-in;
+            vertical-align: middle;
+        }
+
+        .button {
+            position: relative;
+            display: inline-block;
+            margin: 0;
+            padding: 8px 15px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #333;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+            white-space: nowrap;
+            background-color: #eaeaea;
+            background-repeat: repeat-x;
+            border-radius: 3px;
+            border: 1px solid #ddd;
+            border-bottom-color: #c5c5c5;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .05);
+            vertical-align: middle;
+            cursor: pointer;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .button:hover,
+        .button:active {
+            background-position: 0 -15px;
+            border-color: #ccc #ccc #b5b5b5;
+        }
+
+        .button:active {
+            background-color: #dadada;
+            border-color: #b5b5b5;
+            background-image: none;
+            box-shadow: inset 0 3px 5px rgba(0, 0, 0, .15);
+        }
+
+        .button:focus,
+        input[type=text]:focus,
+        input[type=password]:focus {
+            outline: none;
+            border-color: #51a7e8;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, .075), 0 0 5px rgba(81, 167, 232, .5);
+        }
+
+        label[for=search] {
+            display: block;
+            text-align: left;
+        }
+
+        #search label {
+            font-weight: 200;
+            padding: 5px 0;
+        }
+
+        #search input[type=text] {
+            font-size: 18px;
+            width: 300px;
+        }
+
+        #search .button {
+            padding: 10px;
+            width: 90px;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div>
+        <div id="main" style="width: 615px;height:570px;float:left;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <form class="form-horizontal" method="post" action="#">
+                            <!-- 表单区域-->
+                            <fieldset>
+                                <!--表单主题-->
+                                <legend style="width: auto">儿童领养登记</legend>
+                                <!-- 每一个form-group都可以自定义布局-->
+                                <div class="form-group">
+                                    <!-- label表示文字提示标签,可以通过表单的组建的id提示-->
+                                    <label class="col-md-2 control-label" for="mid">领养人身份证号</label>
+                                    <div class="col-md-4">
+                                        <input class="form-control" id="mid" type="text"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <!-- label表示文字提示标签,可以通过表单的组建的id提示-->
+                                    <label class="col-md-2 control-label" for="mid">领养儿童身份证号</label>
+                                    <div class="col-md-4">
+                                        <input class="form-control" id="mid" type="text"/>
+                                    </div>
+                                </div>
+
+                                <!--<div class="form-group">
+                                    <label class="col-md-2 control-label" for="sex">审核状态</label>
+                                    <div class="col-md-5">
+                                        <div class="radio-inline">
+                                            <label for="sex-man"></label><input type="radio" name="sex" id="sex-man" value="man" checked/>男
+                                        </div>
+                                        <div class="radio-inline">
+                                            <label for="sex-woman"></label><input type="radio" name="sex" id="sex-woman"
+                                                                                  value="woman"/>女
+                                        </div>
+                                    </div>
+                                </div>-->
+                                
+                                <div class="form-group">
+                                    <label class="control-label col-md-2" for="city">领养申请审核状态</label>
+                                    <div class="col-md-2">
+                                        <select id="city" class="form-control">
+                                            <option value="成功提交">成功提交</option>
+                                            <option value="正在审核">正在审核</option>
+                                            <option value="领养成功">领养成功</option>
+                                            <option value="申请失败">申请失败</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-2">
+                                        <input class="btn btn-primary" type="submit" value="提交"/>
+                                        <input class="btn btn-warning" type="reset" value="重置"/>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="main2" style="width: 615px;height:570px;float:left;">
+            <div class="container_search">
+                <div id="search">
+                    <label>
+                        <input type="text" name="q">
+                    </label>
+                    <input class="button" type="submit" value="Search">
+                </div>
+            </div>
+            <div style="text-align:center;margin:100px 0; font:normal 14px/24px 'MicroSoft YaHei';"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
