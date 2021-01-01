@@ -10,7 +10,7 @@ import pandas as pd
 # 用于文件数据集成的类
 class DataIntegrate:
     def __init__(self):
-        # MySQL
+        # 初始化MySQL
         self.MYSQL_HOST = 'localhost'
         self.MYSQL_DB = 'care'
         self.MYSQL_USER = 'root'
@@ -27,7 +27,7 @@ class DataIntegrate:
         print(self.connect)
         self.cursor = self.connect.cursor()
 
-    # 插入数据的主函数
+    # 插入json数据的函数
     def insert_json(self, filename, c_id):
         data_json = json.load(codecs.open(filename, 'r', 'utf-8'))
         c_id = str(c_id)
@@ -55,11 +55,13 @@ class DataIntegrate:
                         self.cursor.execute(sql3, (data['id'], data['education_level'], int(data['loan']),
                                                    data['school']))
                         self.connect.commit()
+                        print("json数据插入成功")
             except Exception as e:
                 print('json_error: ', e)
         else:
             print("json发生其他错误！！！")
 
+    # 插入xml数据的函数
     def insert_xml(self, filename, c_id):
         c_id = str(c_id)
         # 建立数据暂存数组
@@ -92,9 +94,11 @@ class DataIntegrate:
                         'insert into children (c_id,c_name,c_living_condition,c_actual_guardian) values (%s,%s,%s,%s)  ON DUPLICATE KEY UPDATE c_name=VALUES(c_name),c_living_condition=VALUES(c_living_condition),c_actual_guardian=VALUES(c_actual_guardian)',
                         [id_list[0], name_list[0], current_living_list[0], actual_guardian_list[0]])
                     self.connect.commit()
+                    print("xml数据插入成功")
         except Exception as e:
             print('xml_error: ', e)
 
+    # 插入csv数据的函数
     def insert_csv(self, filename, c_id):
         c_id = int(c_id)
         # 用pandas读取csv
@@ -117,7 +121,7 @@ class DataIntegrate:
                         print("csv数据插入成功")
                     except Exception as e:
                         print("csv_error1:", e)
-                        self.connect.rollback()
+                        # self.connect.rollback()
                 else:
                     dataList = [id, name, gender, date, nation, b_p, b_c, edu_d,
                                 children, crime, c_p, c_c]
@@ -129,12 +133,13 @@ class DataIntegrate:
                         print("csv数据插入成功")
                     except Exception as e:
                         print("csv_error2:", e)
-                        self.connect.rollback()
+                        # self.connect.rollback()
 
+    # 插入excel数据的函数
     def insert_excel(self, filename, c_id):
         c_id = str(c_id)
         try:
-            book = xlrd.open_workbook(filename)
+            book = xlrd.open_workbook(filename)  # 文件名，把文件与py文件放在同一目录下
         except:
             print("open excel file failed!")
         try:
@@ -145,19 +150,24 @@ class DataIntegrate:
         row_num = []
         value = {}
         row_num = sheet.nrows
-        # i = 2
         for i in range(row_num):  # 第一行是标题名，对应表中的字段名所以应该从第二行开始，计算机以0开始计数，所以值是1
             row_data = sheet.row_values(i)
             # print(row_data)
             value_1 = (row_data[0], row_data[6], row_data[7], row_data[8])
             value_2 = (row_data[0], row_data[7])
             if c_id == str(row_data[0]):
-                sql_1 = "replace into children(`c_id`,`c_disability`,`c_health_level`,`c_health_care`) values(%s,%s,%s,%s)"
-                sql_2 = "replace into parents(`p_id`,`p_health_level`) values(%s,%s)"
-                self.cursor.execute(sql_1, value_1)  # 执行sql语句
-                self.cursor.execute(sql_2, value_2)  # 执行sql语句
+                # print(value_1)
+                if row_data[9] > 18:
+                    # sql_2 = "replace into parents(`p_id`,`p_health_level`) values(%s,%s)"
+                    sql_2 = "insert into parents(`p_id`,`p_health_level`) values(%s,%s) ON DUPLICATE KEY UPDATE p_id = VALUES(p_id),p_health_level = VALUES(p_health_level)"
+                    self.cursor.execute(sql_2, value_2)  # 执行sql语句
+                else:
+                    sql_1 = "insert into children(`c_id`,`c_disability`,`c_health_level`,`c_health_care`) values(%s,%s,%s,%s) ON DUPLICATE KEY UPDATE c_id = VALUES(c_id),c_disability = VALUES(c_disability),c_health_level=VALUES(c_health_level),c_health_care=VALUES(c_health_care)"
+                    self.cursor.execute(sql_1, value_1)  # 执行sql语句
                 self.connect.commit()
+                print("excel数据插入成功")
 
+    # 插入txt数据的函数
     def insert_txt(self, filename, c_id):
         c_id = str(c_id)
         file = open(filename, 'r')
@@ -166,28 +176,36 @@ class DataIntegrate:
 
         if lines:
             for line in lines:
+                if not line.strip(): continue
                 line = line.strip('\n').split()
-                child_id = line[0]
+                id = line[0]
                 gender = line[1]
                 name = line[2]
                 date = line[3]
                 fortune = line[5]
                 credit_level = line[4]
+                age1 = line[6]
+                age2 = int(age1)
                 if id == c_id:
-                    # conn = pymysql.connect(host="localhost", port=3306, user="root", passwd="abc755716", db="care")
-                    # cursor = conn.cursor()
-                    sql = "insert into children(c_id,c_gender,c_name,c_date,c_fortune,c_credit_level)values(%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE c_gender = VALUES(c_gender),c_name = VALUES(c_name),c_date = VALUES(c_date),c_fortune = VALUES(c_fortune),c_credit_level = VALUES(c_credit_level)"
-                    param = (child_id, gender, name, date, fortune, credit_level)
-                    self.cursor.execute(sql, param)
-                    self.connect.commit()
-                    print('txt数据更新成功')
-        file.close()
+                    if age2 > 18:
+                        sql = "insert into parents(p_id,p_gender,p_name,p_date,p_fortune,p_credit_level)values(%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE p_id = VALUES(p_id),p_gender = VALUES(p_gender),p_name = VALUES(p_name),p_date = VALUES(p_date),p_fortune = VALUES(p_fortune),p_credit_level = VALUES(p_credit_level)"
+                        param = (id, gender, name, date, fortune, credit_level)
+                        self.cursor.execute(sql, param)
+                        self.connect.commit()
+                        file.close()
+                    else:
+                        sql = "insert into children(c_id,c_gender,c_name,c_date,c_fortune,c_credit_level)values(%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE c_id = VALUES(c_id),c_gender = VALUES(c_gender),c_name = VALUES(c_name),c_date = VALUES(c_date),c_fortune = VALUES(c_fortune),c_credit_level = VALUES(c_credit_level)"
+                        param = (id, gender, name, date, fortune, credit_level)
+                        self.cursor.execute(sql, param)
+                        self.connect.commit()
+                        file.close()
+                    print('txt数据插入成功')
         self.cursor.close()
         self.connect.close()
 
 
 # 读入数据执行插入
-def execute_insert(c_id):
+def execute_insert(the_id):
     mysql = DataIntegrate()
     file_dir = "./static/data/"
     for root, dirs, files in os.walk(file_dir):
@@ -195,24 +213,19 @@ def execute_insert(c_id):
             tmp_list = filename.split(".")
             t = tmp_list[1]
             if t == "csv":
-                mysql.insert_csv(root + filename, c_id)
-                print("csv数据插入成功")
+                mysql.insert_csv(root + filename, the_id)
             elif t == "json":
-                mysql.insert_json(root + filename, c_id)
-                print("json数据插入成功")
-            elif t == "xlsx":
-                mysql.insert_excel(root + filename, c_id)
-                print("excel数据插入成功")
+                mysql.insert_json(root + filename, the_id)
+            elif t == "xls":
+                mysql.insert_excel(root + filename, the_id)
             elif t == "xml":
-                mysql.insert_xml(root + filename, c_id)
-                print("xml数据插入成功")
+                mysql.insert_xml(root + filename, the_id)
             elif t == "txt":
-                mysql.insert_txt(root + filename, c_id)
-                print("txt数据插入成功")
+                mysql.insert_txt(root + filename, the_id)
             else:
                 print("这合理吗？")
     print("所有数据插入成功")
 
 
-children_id = input()
-execute_insert(children_id)
+# children_id = input()
+# execute_insert(children_id)
