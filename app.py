@@ -1,21 +1,21 @@
 from flask import Flask, render_template, request
-import data_integrate
+# import data_integrate
 
 app = Flask(__name__)
 
 
 @app.route('/', methods=['GET', 'POST'])
-def show():
-    return render_template('红色导航栏.html')
+def user():
+    return render_template('导航栏div部分.html')
 
 
 @app.route('/inquiry', methods=['GET', 'POST'])
-def user():
+def inquiry():
     return render_template('children_inquiry.html')
 
 
 @app.route('/register', methods=['GET', 'POST'])
-def user():
+def register():
     return render_template('children_register.html')
 
 
@@ -24,7 +24,7 @@ def get_id():
     id_num = request.values.get("id_num")
     print(id_num)
     #调用登记函数
-    data_integrate.execute_insert(id_num)
+    # data_integrate.execute_insert(id_num)
     words = {'word': '成功接收'}
     return words
 
