@@ -223,5 +223,3 @@ def execute_insert(c_id):
     print("所有数据插入成功")
 
 
-children_id = input()
-execute_insert(children_id)

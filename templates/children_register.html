@@ -1,13 +1,31 @@
 <!DOCTYPE html>
-<html lang= "en">
+<html lang= "en" style="height: 100%">
 <head>
+    <title>儿童信息登记</title>
     <meta charset="utf-8">
     <script type=text/javascript src ="../static/js/jquery-3.5.1.min.js"></script>
 </head>
-<body>
-<h1 id="h1_id"> 儿童信息登记 </h1>
-<button id="button1">提交</button>
-<input type=text id="id_num">
+<body style="height: 100%; width: 100%">
+<div id="container" style="width:100%; height:100%">
+
+<div id="header" style="background-color:#870e0e;">
+<h1 style="margin-bottom:0; font-size: 45px">儿童信息导入登记</h1></div>
+
+<div id="menu" style="background-color:#8b1825;height:636px;width:40%;float:left;">
+    <b style="font-size: 25px">请输入身份证号，导入登记相关数据</b>
+    <div class="searchBox">
+    <input class="searchInput" id="id_num" autocomplete="off" type="text" placeholder="请输入身份证号" size="70" style="height: 30px">
+    <button id="button1" style="height: 33px">提交</button>
+</div>
+
+</div>
+
+<div id="content" style="background-color:#e39b9b;height:636px;width:60%;float:left;"></div>
+
+<div style="background-color:#870e0e;clear:both;text-align:center; height: 40px; font-size: 30px; color: #dddddd">
+全国儿童福利综合管理信息系统</div>
+
+</div>
 <script>
 
     $('#button1').click(function (){
@@ -16,9 +34,9 @@
             type: "post",
             data: {"id_num":$('input[id="id_num"]').val()},
             success:function (words){
-                $('#h1_id').html(words["word"])
+                $('#content').html(words["word"])
             },error:function (){
-                $('#h1_id').html('something wrong')
+                $('#content').html('登记未成功')
             }
 
         })

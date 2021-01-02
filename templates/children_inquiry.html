@@ -1,24 +1,67 @@
 <!DOCTYPE html>
 <html lang= "en">
 <head>
+    <title>儿童信息查询</title>
     <meta charset="utf-8">
     <script type=text/javascript src ="../static/js/jquery-3.5.1.min.js"></script>
 </head>
 <body>
-<h1 id="h1_id"> 儿童信息查询 </h1>
-<button id="button1">提交</button>
-<input type=text id="id_num">
+<div id="container" style="width:100%; height:100%">
+
+<div id="header" style="background-color:#870e0e;">
+<h1 style="margin-bottom:0; font-size: 45px">儿童信息查询</h1></div>
+
+<div id="menu" style="background-color:#8b1825;height:636px;width:40%;float:left;">
+    <b style="font-size: 25px">请输入查询关键字</b>
+    <div class="searchBox">
+    <input class="searchInput" id="id_num" autocomplete="off" type="text" placeholder="请输入关键字" size="70" style="height: 30px">
+    <button id="button1" style="height: 33px">提交</button>
+</div>
+
+</div>
+
+<div id="results" style="background-color:#e39b9b;height:636px;width:60%;float:left; white-space: pre-line"></div>
+
+<div style="background-color:#870e0e;clear:both;text-align:center; height: 40px; font-size: 30px; color: #dddddd">
+全国儿童福利综合管理信息系统</div>
+
+</div>
+
+
 <script>
 
     $('#button1').click(function (){
         $.ajax({
             url:"/inquiry/get_id",
             type: "post",
-            data: {"id_num":$('input[id="id_num"]').val()},
-            success:function (words){
-                $('#h1_id').html(words["word"])
+            dataType:'json',
+            data: {"key_value":$('input[id="id_num"]').val()},
+            success:function (res){
+                //$('#h2_id').html('查询成功，结果如下：')
+                //let res_dict = JSON.parse(res)
+                let s_result = document.getElementById('results')
+                s_result.innerText = "身份证号："+res['c_id']+"\n"+
+                    "姓名："+res['c_name']+"\n"+
+                    "性别："+res['c_gender']+"\n"+
+                    "出生日期："+res['c_date']+"\n"+
+                    "籍贯省："+res['c_native_province']+"\n"+
+                    "籍贯市："+res['c_native_city']+"\n"+
+                    "一号监护人："+res['c_guardian_one']+"\n"+
+                    "二号监护人："+res['c_guardian_two']+"\n"+
+                    "现居地省："+res['c_current_province']+"\n"+
+                    "现居地市："+res['c_current_city']+"\n"+
+                    "实际监护人："+res['c_actual_guardian']+"\n"+
+                    "生活状况："+res['c_living_condition']+"\n"+
+                    "儿童受助类型："+res['c_type']+"\n"+
+                    "受助记录："+res['c_assistance']+"\n"+
+                    "受教育情况："+res['c_education']+"\n"+
+                    "残疾情况："+res['c_disability']+"\n"+
+                    "健康水平："+res['c_health_level']+"\n"+
+                    "医疗关怀记录："+res['c_health_care']+"\n"+
+                    "现学校："+res['c_school']+"\n"+
+                    "领养情况："+res['c_adopt']+"\n"
             },error:function (){
-                $('#h1_id').html('something wrong')
+                $('#h2_id').html('something wrong')
             }
 
         })
