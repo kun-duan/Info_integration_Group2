@@ -11,7 +11,7 @@
 <body>
 <div style="width: 500px;height: 2px;margin: 8px 700px">
     <div class="input-group">
-        <label for="query"></label><input type="text" class="form-control input-lg" id="query" placeholder="请输入查询关键词"/>
+        <label for="query"></label><input type="text" class="form-control input-lg" id="query" placeholder="请输入领养人或儿童身份证号"/>
         <span class="input-group-addon btn btn-primary" id="btn2">搜索</span>
     </div>
 </div>
@@ -29,14 +29,18 @@
                             <!-- label表示文字提示标签,可以通过表单的组建的id提示-->
                             <label class="col-md-2 control-label" for="p_id">领养人身份证号</label>
                             <div class="col-md-4">
-                                <input class="form-control" placeholder="请输入领养人身份证号" id="p_id" type="text" oninput = "value=value.replace(/[^\d]/g,'')" maxlength=18 style="font-size: medium"/>
+                                <input class="form-control" placeholder="请输入领养人身份证号" id="p_id" type="text"
+                                       oninput="value=value.replace(/[^\d]/g,'')" maxlength=18
+                                       style="font-size: medium"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <!-- label表示文字提示标签,可以通过表单的组建的id提示-->
                             <label class="col-md-2 control-label" for="c_id">领养儿童身份证号</label>
                             <div class="col-md-4">
-                                <input class="form-control" placeholder="请输入领养儿童身份证号" id="c_id" type="text" oninput = "value=value.replace(/[^\d]/g,'')" maxlength=18 style="font-size: medium"/>
+                                <input class="form-control" placeholder="请输入领养儿童身份证号" id="c_id" type="text"
+                                       oninput="value=value.replace(/[^\d]/g,'')" maxlength=18
+                                       style="font-size: medium"/>
                             </div>
                         </div>
 
@@ -53,7 +57,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-offset-2">
-                                <input id="btn1" class="btn btn-primary" type="submit" value="提交"/>
+                                <input id="btn1" class="btn btn-primary" style="width: 55px" value="提交"/>
                                 <input class="btn btn-warning" type="reset" value="重置"/>
                             </div>
                         </div>
@@ -110,11 +114,16 @@
             success: function (res) {
                 //alert(res)
                 let search_result = document.getElementById('search_result');
-                search_result.innerText = "身份证号："+res["p_id"]+"\n"+"姓名："+res["name"]+"\n"+"性别："+res["gender"]
-                    +"\n"+"出生日期："+res["date"]+"\n"+"民族："+res["nation"]+"\n"+"学历："+res["education_degree"]
-                    +"\n"+"有无子女："+res["children"]+"\n"+"现居城市："+res["current_city"]+"\n"+"信用等级（满级为5）："+res["credit_level"]
-                    +"\n"+"健康情况："+res["health_level"]+"\n"+"审核状态："+res["audit_status"]+"\n"+"联系方式："+res["phone_number"]
-                    +"\n"+"被领养儿童身份证号："+res["adopted_children_id"];
+                if (res["p_id"] === "0") {
+                    search_result.innerText = "没有相关信息";
+                } else {
+                    search_result.innerText = "身份证号：" + res["p_id"] + "\n" + "姓名：" + res["name"] + "\n" + "性别：" + res["gender"]
+                        + "\n" + "出生日期：" + res["date"] + "\n" + "民族：" + res["nation"] + "\n" + "学历：" + res["education_degree"]
+                        + "\n" + "有无子女：" + res["children"] + "\n" + "有无犯罪记录：" + res["crime"] + "\n" + "现居城市：" + res["current_province"]
+                        + res["current_city"] + "\n" + "信用等级（满级为5）：" + res["credit_level"] + "\n" + "资产等级：" + res["fortune"] + "\n"
+                        + "健康情况：" + res["health_level"] + "\n" + "审核状态：" + res["audit_status"] + "\n" + "联系方式：" + res["phone_number"]
+                        + "\n" + "被领养儿童身份证号：" + res["adopted_children_id"];
+                }
             },
             error: function () {
                 alert("发送ajax请求失败")

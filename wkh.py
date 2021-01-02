@@ -51,10 +51,10 @@ def user_search(query):
     sql = "SELECT `p_name`,`p_gender`,`p_nation`,`p_audit_status` FROM parents WHERE `p_id` = %s"
     cursor.execute(sql, query)
     select_tmp = cursor.fetchall()
-    select_data = list(select_tmp[0])
-    if len(select_data) == 0:
-        return "查无此人"
-    elif len(select_data) > 0:
+    if len(select_tmp) == 0:
+        return 0
+    elif len(select_tmp) > 0:
+        select_data = list(select_tmp[0])
         return select_data
     cursor.close()
     connect.close()
@@ -76,14 +76,15 @@ def governor_register(p_id, p_children_id, p_status):
 def governor_search(query):
     connect = pymysql.connect(host="localhost", port=3306, user="root", passwd="123456", db="care", charset='utf8')
     cursor = connect.cursor()
-    sql = "SELECT `p_id`,`p_name`,`p_gender`,`p_date`,`p_nation`,`p_education_degree`,`p_children`,`p_crime`,`p_current_city`,`p_credit_level`,`p_health_level`,`p_audit_status`,`p_phone_number`,`p_children_id` FROM parents WHERE `p_id` = %s or `p_name` = %s or `p_children_id` = %s "
-    cursor.execute(sql, (query, query, query))
+    sql = "SELECT `p_id`,`p_name`,`p_gender`,`p_date`,`p_nation`,`p_education_degree`,`p_children`,`p_crime`,`p_current_province`,`p_current_city`,`p_fortune`,`p_credit_level`,`p_health_level`,`p_audit_status`,`p_phone_number`,`p_children_id` FROM parents WHERE `p_id` = %s or `p_children_id` = %s "
+    cursor.execute(sql, (query, query))
     select_tmp = cursor.fetchall()
-    select_data = list(select_tmp[0])
-    if len(select_data) == 0:
-        return "查无此人"
-    elif len(select_data) > 0:
+    if len(select_tmp) == 0:
+        return 0
+    elif len(select_tmp) > 0:
+        select_data = list(select_tmp[0])
         return select_data
     cursor.close()
     connect.close()
+
 

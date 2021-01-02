@@ -1376,8 +1376,8 @@ setDocument = Sizzle.setDocument = function( node ) {
 			}
 
 			// Support: Firefox <=3.6 - 5 only
-			// Old Firefox doesn't throw on a badly-escaped identifier.
-			el.querySelectorAll( "\\\f" );
+			// Old Firefox doesn't throw on a b	adly-escaped identifier.
+			el.querySelectorAll( "\\f" );
 			rbuggyQSA.push( "[\\r\\n\\f]" );
 		} );
 
