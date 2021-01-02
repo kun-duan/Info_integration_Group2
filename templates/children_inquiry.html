@@ -12,13 +12,13 @@
 
     $('#button1').click(function (){
         $.ajax({
-            url:"/get_id",
+            url:"/inquiry/get_id",
             type: "post",
             data: {"id_num":$('input[id="id_num"]').val()},
             success:function (words){
                 $('#h1_id').html(words["word"])
             },error:function (){
-                alert("wrong")
+                $('#h1_id').html('something wrong')
             }
 
         })
