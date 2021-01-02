@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f0817716-ebd9-49e2-9faa-611602670fb8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/governor.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/governor.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/try05.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -202,7 +199,8 @@
       <workItem from="1609402903037" duration="4192000" />
       <workItem from="1609412410915" duration="5449000" />
       <workItem from="1609417973445" duration="18197000" />
-      <workItem from="1609475439570" duration="23407000" />
+      <workItem from="1609475439570" duration="23480000" />
+      <workItem from="1609577136527" duration="2472000" />
     </task>
     <servers />
   </component>
@@ -223,7 +221,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Info_integration_Group2$excel.coverage" NAME="excel Coverage Results" MODIFIED="1609423241044" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Info_integration_Group2$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1609501502299" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Info_integration_Group2$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1609577401345" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/Info_integration_Group2$try01.coverage" NAME="try01 Coverage Results" MODIFIED="1609330845008" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Info_integration_Group2$parse_json.coverage" NAME="parse_json Coverage Results" MODIFIED="1609333980045" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Info_integration_Group2$data_integrate.coverage" NAME="data_integrate Coverage Results" MODIFIED="1609487321367" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
