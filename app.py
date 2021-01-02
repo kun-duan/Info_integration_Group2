@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request
 import data_integrate
+
 app = Flask(__name__)
 
 
@@ -27,9 +28,13 @@ def get_id():
     words = {'word': '成功接收'}
     return words
 
+
 @app.route('/inquiry/get_id', methods=['GET', 'POST'])
 def query():
-    return
+    id_num = request.values.get("id_num")
+    print(id_num)
+    words = {'word': '成功接收'}
+    return words
 
 
 if __name__ == '__main__':

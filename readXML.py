@@ -31,6 +31,7 @@ def readXML(filepath):
         actual_guardian = Row.getElementsByTagName("实际监护人")[0]
         actual_guardian_list.append(actual_guardian.childNodes[0].data)
 
+
 def insert_to_DB():
     for i in range(0,len(IDnum_list)-1):
         #创建数据库链接
@@ -41,9 +42,7 @@ def insert_to_DB():
         cursor.close()
 
 
-
-
 if __name__ == '__main__':
-    readXML('../调查数据.xml')
+    readXML('../static/data/调查数据.xml')
     insert_to_DB()
 
