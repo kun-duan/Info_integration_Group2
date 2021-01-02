@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang= "en">
+<head>
+    <meta charset="utf-8">
+    <script type=text/javascript src ="../static/JS/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<h1 id="h1_id"> 儿童信息查询 </h1>
+<button id="button1">提交</button>
+<input type=text id="id_num">
+<script>
+
+    $('#button1').click(function (){
+        $.ajax({
+            url:"/get_id",
+            type: "post",
+            data: {"id_num":$('input[id="id_num"]').val()},
+            success:function (words){
+                $('#h1_id').html(words["word"])
+            },error:function (){
+                alert("wrong")
+            }
+
+        })
+    })
+</script>
+</body>
+</html>
