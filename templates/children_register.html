@@ -17,7 +17,15 @@
     <input class="searchInput" id="id_num" autocomplete="off" type="text" placeholder="请输入身份证号" size="70" style="height: 30px">
     <button id="button1" style="height: 33px">提交</button>
 </div>
-
+<!--    表单登记儿童受助类型-->
+    <b style="font-size: 20px">受助儿童登记类型</b>
+    <form>
+        <input type="radio" name="c_type" value="残疾">残疾
+        <input type="radio" name="c_type" value="孤儿">孤儿
+        <input type="radio" name="c_type" value="留守儿童">留守儿童
+        <input type="radio" name="c_type" value="困境儿童">困境儿童
+        <input type="radio" name="c_type" value="事实无人抚养儿童">事实无人抚养儿童
+</form>
 </div>
 
 <div id="content" style="background-color:#e39b9b;height:636px;width:60%;float:left;"></div>
@@ -32,7 +40,7 @@
         $.ajax({
             url:"/register/get_id",
             type: "post",
-            data: {"id_num":$('input[id="id_num"]').val()},
+            data: {"id_num":$('input[id="id_num"]').val(), "c_type":$('input[name="c_type"]:checked').val()},
             success:function (words){
                 $('#content').html(words["word"])
             },error:function (){

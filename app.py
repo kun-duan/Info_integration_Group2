@@ -17,7 +17,7 @@ import pymysql
 
 app = Flask(__name__)
 
-# app.secret_key='yxy'
+app.secret_key='yxy'
 
 
 '''
@@ -43,9 +43,12 @@ def register():
 @app.route('/register/get_id', methods=['GET', 'POST'])
 def get_id():
     id_num = request.values.get("id_num")
-    print(id_num)
+    c_type = request.values.get("c_type")
+    tup_val =[id_num, c_type]
     # 调用登记函数
     data_integrate.execute_insert(id_num)
+    #调用儿童类型登记函数
+    data_query.insert_type(tup_val)
     words = {'word': '导入、登记成功'}
     return words
 
@@ -300,7 +303,12 @@ def allowed_file(filename):
 '''
 
 
-@app.route('/fulizijin',methods=['GET', 'POST'])
+@app.route('/fulizijin', methods=['GET', 'POST'])
+def index_fuli():
+    return render_template("fulizijin.html")
+
+
+@app.route('/fulizijin/call',methods=['GET', 'POST'])
 def method():
     # 资金流入登记
     #获取输入的姓名，身份证号码，金额以及时间
@@ -370,7 +378,7 @@ def method():
        db.commit()
        cur.close()
     else:print("未填入身份证号码")
-    return render_template('fulizijin.html')
+    # return render_template('fulizijin.html')
 
 
 if __name__ == '__main__':
