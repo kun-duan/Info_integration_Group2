@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>普通用户页面</title>
+    <script type="text/javascript" src="../static/js/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css"/>
+</head>
+<body>
+<div style="width: 500px;height: 2px;margin: 8px 850px">
+    <div class="input-group">
+        <label for="query"></label><input type="text" class="form-control input-lg" id="query" placeholder="请输入身份证号" maxlength=18/>
+        <span class="input-group-addon btn btn-primary" id="btn2">搜索</span>
+    </div>
+</div>
+<div style="width: 800px;height: 500px;float: left;display: inline">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 ">
+                <form class="form-horizontal" method="post">
+                    <!-- 表单区域-->
+                    <fieldset>
+                        <!--表单主题-->
+                        <legend style="width: auto;font-size: xx-large;font-weight: bolder;">儿童领养申请</legend>
+                        <!-- 每一个form-group都可以自定义布局-->
+                        <div class="form-group">
+                            <!-- label表示文字提示标签,可以通过表单的组建的id提示-->
+                            <label class="col-md-2 control-label" for="p_id">个人身份证号</label>
+                            <div class="col-md-4">
+                                <input class="form-control" placeholder="请输入身份证号" id="p_id" type="text" oninput = "value=value.replace(/[^\d]/g,'')" maxlength=18 style="font-size: medium"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!-- label表示文字提示标签,可以通过表单的组建的id提示-->
+                            <label class="col-md-2 control-label" for="p_phone_number">个人电话号码</label>
+                            <div class="col-md-4">
+                                <input class="form-control" placeholder="请输入电话号码" id="p_phone_number" type="text" oninput = "value=value.replace(/[^\d]/g,'')" maxlength=11 style="font-size: medium"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2">
+                                <input id="btn1" class="btn btn-primary" style="width: 55px" value="提交"/>
+                                <input class="btn btn-warning" type="reset" value="重置"/>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="width: 500px;height: 470px;float: left;display: inline;background: rgba(200,200,200,0.2);margin: 50px;border: #8a6d3b solid;border-radius:8px;">
+    <div style="white-space: pre-line;margin: 20px 10px;font-size: medium" id="search_result"></div>
+</div>
+</body>
+</html>
+
+<script>
+    $("#btn1").click(function () {
+        let p_id = $('#p_id').val();
+        let p_phone_number = $('#p_phone_number').val();
+        let data = {
+            data1: JSON.stringify({
+                'p_id': p_id,
+                'p_phone_number': p_phone_number,
+            }),
+        }
+        $.ajax({
+            url: '/ajax_user_submit',
+            type: 'post',
+            data: data,
+            dataType: 'json',
+            success: function (res) {
+                alert(res["pro"]);
+            },
+            error: function () {
+                alert("请求失败");
+            }
+        })
+    })
+
+    $("#btn2").click(function () {
+        let query = $('#query').val();
+        let data = {
+            data2: JSON.stringify({
+                'query': query,
+            }),
+        }
+        $.ajax({
+            url: '/ajax_user_search',
+            type: 'post',
+            data: data,
+            dataType: 'json',
+            success: function (res) {
+                let search_result = document.getElementById('search_result');
+                if (res["p_id"] === "0"){
+                    search_result.innerText = "没有相关信息"
+                }
+                else {
+                    search_result.innerText = "姓名："+res["name"]+"\n"+"性别："+res["gender"]+"\n"
+                    +"民族："+res["nation"]+"\n"+"审核状态："+res["status"];
+                }
+            },
+            error: function () {
+                alert("请求失败");
+            }
+        })
+    })
+</script>

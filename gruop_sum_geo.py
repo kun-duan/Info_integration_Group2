@@ -84,9 +84,9 @@ class renew_sql:
     print(list_values)
     tuple_data=tuple(list_values)
     print(tuple_data[1])
-    for i in range(len(list_values)):
-        sql_3 = "replace into geoinformation(`province`,`sum_children`,`sum_parents`) values(%s,%s,%s)"
-        cursor.execute(sql_3, tuple_data[i]) # 执行sql语句
+    for i in range(len(tuple_data)):
+        sql_3 = "replace into geoinformation(`province`,`sum_children`,`sum_parents`) values(% s,% s,% s)"
+        cursor.execute(sql_3, tuple_data[i])#执行sql语句
     conn.commit()
     sql_4="SELECT * FROM geoinformation"
     epidemic_4=pd.read_sql(sql_4,con=conn)
@@ -97,23 +97,23 @@ class renew_sql:
         for j in range(len(data_4[i])):
             if(j==1):
               if(data_4[i][j]==0):
-                number=random.uniform(1000,20000)
-                data_4[i][j]=int((data_4[i][j]+1)*number)
+                #number=random.uniform(1000,20000)
+                data_4[i][j]=int((data_4[i][j]+1)*2333)
               else:
-                number_2=random.uniform(2000,4000)
-                data_4[i][j]=int(data_4[i][j]*number_2)
+                #number_2=random.uniform(2000,4000)
+                data_4[i][j]=int(data_4[i][j]*5789)
             elif(j==2):
               if(data_4[i][j]==0):
-                number_3=random.uniform(1000,10000)
-                data_4[i][j]=int((data_4[i][j]+1)*number_3)
+                #number_3=random.uniform(1000,10000)
+                data_4[i][j]=int((data_4[i][j]+1)*4666)
               else:
-                number_4=random.uniform(2000,4000)
-                data_4[i][j]=int(data_4[i][j]*number_4)
+                #number_4=random.uniform(2000,4000)
+                data_4[i][j]=int(data_4[i][j]*6539)
     list_values_2 = []
     for i in range(0, len(data_4)):
         list_values_2.append(list(data_4[i]))
     for i in range(len(list_values_2)):
-        sql_5 = "replace into geoinformation(`province`,`sum_children`,`sum_parents`,`bilv`) values(%s,%s,%s,%s)"
+        sql_5 = "replace into geoinformation(`province`,`sum_children`,`sum_parents`,`bilv`) values(% s,% s,% s,% s)"
         cursor.execute(sql_5, list_values_2[i])
     conn.commit()
     cursor.close()
