@@ -4,9 +4,10 @@ These classes are dictated by the DB API v2.0:
 
     https://www.python.org/dev/peps/pep-0249/
 """
+from .compat import StandardError
 
 
-class MySQLError(Exception):
+class MySQLError(StandardError):
     """Exception related to operation with MySQL."""
 
 

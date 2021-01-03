@@ -20,6 +20,7 @@ class renew_sql:
     epidemic_2 = pd.read_sql(sql_2, con=conn)
 # print(epidemic_2)
     data_2=epidemic_2.values
+    #print(data_2)
 # print(data_2)
 # cursor.execute(sql)
 # cursor.execute(sql_2)
@@ -48,20 +49,18 @@ class renew_sql:
 # print(merge_data["1_x"][2])
     for i in range(len(merge_data[0])):
     # print(merge_data[0][i])
-      if(np.isnan(merge_data["1_x"][i])==None):
-        merge_data["1_x"][i]=0
       all_data.append((merge_data[0][i], merge_data["1_x"][i], merge_data["1_y"][i]))
-# print(all_data)
+    print(all_data)
     t = np.asarray(all_data)
     covert = np.nan_to_num(t)
-# print(covert)
+    print(covert)
 
     for i in range(len(covert)):
       for j in range(len(covert[i])):
         # print(covert[i][j])
         if covert[i][j] == 'nan':
             covert[i][j] = 0
-    print(covert)
+    #print(covert)
 # list_covert=np.array(covert)
 # print(type(list_covert))
 # print(list_covert)
@@ -81,17 +80,17 @@ class renew_sql:
     list_values = []
     for i in range(0, len(covert)):
        list_values.append(list(covert[i]))
-    print(list_values)
+    #print(list_values)
     tuple_data=tuple(list_values)
-    print(tuple_data[1])
-    for i in range(len(tuple_data)):
-        sql_3 = "insert into geoinformation(`province`,`sum_children`,`sum_parents`) values(% s,% s,% s) ON DUPLICATE KEY UPDATE province=tuple_data[i][0],sum_children=tuple_data[i][1],sum_parents=tuple_data[i][2]"
-        cursor.execute(sql_3, tuple_data[i])#执行sql语句
+    #print(tuple_data[1])
+    for i in range(len(list_values)):
+        sql_3 = "replace into geoinformation(`province`,`sum_children`,`sum_parents`) values(%s,%s,%s) "
+        cursor.execute(sql_3, list_values[i])#执行sql语句
     conn.commit()
     sql_4="SELECT * FROM geoinformation"
     epidemic_4=pd.read_sql(sql_4,con=conn)
     data_4=epidemic_4.values
-    print(data_4)
+    #print(data_4)
 
     for i in range(len(data_4)):
         for j in range(len(data_4[i])):
