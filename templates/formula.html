@@ -1,0 +1,52 @@
+
+
+{#{% block title %}#}
+{#信息发布界面#}
+{#{% endblock %}#}
+
+{% block css %}
+<link rel="stylesheet" href="../static/css/formula.css">
+{% endblock %}
+
+
+{% block content %}
+{#<body  style="background-image: url('https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2699863970,3643884691&fm=26&gp=0.jpg')">#}
+    <div>
+     <h1>救济库中还剩：<font color="#FF0000" style="font-size:50px">{{ amount1 }}</font></h1>
+
+    </div>
+<div class="formula_content">
+    <div class="page-header" id="page_header">
+        <h1>寻亲列表</h1>
+    </div>
+    <div class="issue_list_div">
+        <ul class="issue_list_ul">
+            {% for issue in issue_information %}
+                <li class="issue_list_li">
+                    <div class="issue_div">
+                        <div class="issue_content" >
+{#                            <article>#}
+{#                                {{ issue[1] }}#}
+{#                            </article>#}
+                            <font color="#00FF00" style="font-size:30px">{{ issue[1] }}</font>
+                               {{ issue[4]|safe }}
+                        </div>
+{#                        <img src="data:images/gif;base64,@{{ issue[5] }}" type="image/jpeg" />#}
+{#                      <img  src="data:images/jpg;;base64,{{ issue[5] }}">#}
+                        <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1078861629,3747050294&fm=26&gp=0.jpg">
+{#                        <img src="{{ 'http://127.0.0.1:5000'+issue[5] }}" />#}
+
+                        <div class="author_info">
+                            <p class="post-info">
+                                <span>失踪地：{{ issue[3] }}</span>&emsp;
+                                <span>联系方式：{{ issue[5] }}</span>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+</body>
+{% endblock %}
