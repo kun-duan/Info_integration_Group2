@@ -1,0 +1,72 @@
+/* main.css */
+body{
+	margin: 0;
+	background: #333;
+}
+#title{
+	position: absolute;
+	width: 40%;
+	height: 10%;
+	top: 0;
+	left: 30%;
+	/* background: #666666; */
+	color: white;
+	font-size: 30px;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+#c1{
+	position: absolute;
+	width: 40%;
+	height: 20%;
+	top: 10%;
+	left: 30%;
+	background: #333333;
+}
+#c2{
+	position: absolute;
+	width: 45%;
+	height: 70%;
+	top: 25%;
+	left: 25%;
+	background: #888888;
+
+}
+#l1{
+	position: absolute;
+	width: 30%;
+	height: 45%;
+	top: 10%;
+	left: 0%;
+	background: #666666;
+
+}
+#l2{
+	position: absolute;
+	width: 30%;
+	height: 45%;
+	top: 55%;
+	left: 0%;
+	background: #666666;
+
+}
+#r1{
+	position: absolute;
+	width: 30%;
+	height: 45%;
+	top: 10%;
+	right: 0%;
+	background: #777;
+
+}
+#r2{
+	position: absolute;
+	width: 30%;
+	height: 45%;
+	top: 55%;
+	right: 0%;
+	background: #777;
+
+}

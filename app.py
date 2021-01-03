@@ -3,6 +3,9 @@ import data_query
 import data_integrate
 import wkh
 import json
+import string
+import utils
+import gruop_sum_geo
 
 app = Flask(__name__)
 
@@ -147,6 +150,56 @@ def ajax_governor_search():
             "p_id": "0"
         })
         return json_result
+
+
+u = utils.utils_ertong("care", "geoinformation", "root", "dqy5240138")
+fumu = utils.utils_fumu("care", "geoinformation", "root", "dqy5240138")
+lingyanglv = utils.utils_lingyanglv("care", "geoinformation", "root", "dqy5240138")
+renew_geo_sql = gruop_sum_geo.renew_sql()
+
+
+@app.route('/geo')
+def geo_information():
+    return render_template("main(1).html")
+
+
+@app.route('/geo_renew')
+def get_geo_renw():
+    renew_geo_sql.get_geo_sql()
+    return render_template("main(1).html")
+
+
+@app.route('/c2')
+def get_c2_data():
+    res = []
+    data = u.get_c2_data()
+    for key, value in data.items():
+        res.append({"name": key, "value": value})
+    # for key,value in data_2.items():
+    #   res_2.append({"name":key,"value":value})
+    #  print(res)
+    return jsonify({"data": res})
+
+
+@app.route('/c2_fumu')
+def get_c2_data_fumu():
+    res = []
+    data = fumu.get_c2_data_fumu()
+    for key, value in data.items():
+        res.append({"name": key, "value": value})
+    # for key,value in data_2.items():
+    #   res_2.append({"name":key,"value":value})
+    #  print(res)
+    return jsonify({"data": res})
+
+
+@app.route('/r1')
+def get_r1_data():
+    data = lingyanglv.get_r1_data()
+    keys = list(data.keys())
+    values = list(data.values())
+    print(jsonify({"keys": keys, "values": values}))
+    return jsonify({"keys": keys, "values": values})
 
 
 if __name__ == '__main__':
