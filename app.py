@@ -46,7 +46,7 @@ def ajax_user_search():
     search_result = wkh.user_search(query)
     if search_result != 0:
         for i, data in enumerate(search_result):
-            if data is None:
+            if data is None or data == "":
                 search_result[i] = "暂无信息"
         json_result = jsonify({
             "name": search_result[0],
@@ -88,7 +88,7 @@ def ajax_governor_search():
         date_format = search_result[3].split("/")
         date_str = date_format[0] + "年" + date_format[1] + "月" + date_format[2] + "日"
         for i, data in enumerate(search_result):
-            if data is None:
+            if data is None or data == "":
                 search_result[i] = "暂无信息"
         json_result = jsonify({
             "p_id": search_result[0],
