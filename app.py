@@ -242,8 +242,7 @@ def post_issue():
         cur.execute(sql, args)
         db.commit()
         cur.close()
-        return render_template('formula.html')
-
+        return render_template('post_issue.html')
 
 
 #寻亲消息界面显示
