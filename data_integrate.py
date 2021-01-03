@@ -10,11 +10,13 @@ import pandas as pd
 # 用于文件数据集成的类
 class DataIntegrate:
     def __init__(self):
+
         # MySQL
         self.MYSQL_HOST = 'localhost'
         self.MYSQL_DB = 'care'
         self.MYSQL_USER = 'root'
         self.MYSQL_PWD = 'dqy5240138'
+
         self.connect = pymysql.connect(
             host=self.MYSQL_HOST,
             db=self.MYSQL_DB,
@@ -27,7 +29,8 @@ class DataIntegrate:
         print(self.connect)
         self.cursor = self.connect.cursor()
 
-    # 插入数据的主函数
+    # 插入json数据的函数
+
     def insert_json(self, filename, c_id):
         data_json = json.load(codecs.open(filename, 'r', 'utf-8'))
         c_id = str(c_id)
@@ -60,6 +63,9 @@ class DataIntegrate:
                 print('json_error: ', e)
         else:
             print("json发生其他错误！！！")
+
+
+    # 插入xml数据的函数
 
     def insert_xml(self, filename, c_id):
         c_id = str(c_id)
@@ -97,6 +103,9 @@ class DataIntegrate:
         except Exception as e:
             print('xml_error: ', e)
 
+
+    # 插入csv数据的函数
+
     def insert_csv(self, filename, c_id):
         c_id = int(c_id)
         # 用pandas读取csv
@@ -133,6 +142,9 @@ class DataIntegrate:
                         print("csv_error2:", e)
                         # self.connect.rollback()
 
+
+    # 插入excel数据的函数
+
     def insert_excel(self, filename, c_id):
         c_id = str(c_id)
         try:
@@ -163,6 +175,9 @@ class DataIntegrate:
                     self.cursor.execute(sql_1, value_1)  # 执行sql语句
                 self.connect.commit()
                 print("excel数据插入成功")
+
+
+    # 插入txt数据的函数
 
     def insert_txt(self, filename, c_id):
         c_id = str(c_id)
@@ -201,7 +216,9 @@ class DataIntegrate:
 
 
 # 读入数据执行插入
-def execute_insert(c_id):
+
+def execute_insert(the_id):
+
     mysql = DataIntegrate()
     file_dir = "./static/data/"
     for root, dirs, files in os.walk(file_dir):
@@ -209,17 +226,17 @@ def execute_insert(c_id):
             tmp_list = filename.split(".")
             t = tmp_list[1]
             if t == "csv":
-                mysql.insert_csv(root + filename, c_id)
+
+                mysql.insert_csv(root + filename, the_id)
             elif t == "json":
-                mysql.insert_json(root + filename, c_id)
+                mysql.insert_json(root + filename, the_id)
             elif t == "xls":
-                mysql.insert_excel(root + filename, c_id)
+                mysql.insert_excel(root + filename, the_id)
             elif t == "xml":
-                mysql.insert_xml(root + filename, c_id)
+                mysql.insert_xml(root + filename, the_id)
             elif t == "txt":
-                mysql.insert_txt(root + filename, c_id)
+                mysql.insert_txt(root + filename, the_id)
+
             else:
                 print("这合理吗？")
     print("所有数据插入成功")
-
-
