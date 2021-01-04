@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="../static/js/jquery-3.5.1.js"></script>
     <title>福利资金管理平台</title>
     <style>
 
@@ -71,38 +71,113 @@
            <div class="container">
                 <div class="left-group"> 资金流入登记<br>
                   <label >捐助人姓名<br></label>
-                  <input name="don"  placeholder="姓名"><br>
+                  <input id="don" name="don"  placeholder="姓名"><br>
                   <label>捐助人身份证号<br></label>
-                  <input name="don_id" placeholder="身份证号"><br>
+                  <input id="don_id" name="don_id" placeholder="身份证号"><br>
                   <label >捐助金额<br></label>
-                  <input name="don_amount" placeholder="金额"><br>
+                  <input id="don_amount" name="don_amount" placeholder="金额"><br>
                   <label >捐助时间<br></label>
-                  <input name="don_time" placeholder="时间"><br>
-                    <input type="submit" ></div>
+                  <input id="don_time" name="don_time" placeholder="时间"><br>
+                    <button id="btn1">提交</button></div>
                 <div class="mid-group"> 受助儿童资格审查<br>
                   <label >请输入儿童身份证号<br></label>
-                  <input name="chi_id" placeholder="身份证号"><br>
-                  <input type="submit"></div>
+                  <input id="chi_id" placeholder="身份证号"><br>
+                    <button id="btn2">查询</button></div>
                 <div class="right-group"> 资金流出登记<br>
                   <label >受助人姓名<br></label>
-                  <input name="rec_name" placeholder="姓名"><br>
+                  <input id="rec_name" placeholder="姓名"><br>
                   <label >受助人身份证号<br></label>
-                  <input name="rec_id" placeholder="身份证号"><br>
+                  <input id="rec_id" placeholder="身份证号"><br>
                   <label >受助金额<br></label>
-                  <input name="rec_amount" placeholder="金额"><br>
+                  <input id="rec_amount" placeholder="金额"><br>
                   <label >受助时间<br></label>
-                  <input name="rec_time" placeholder="时间"><br>
+                  <input id="rec_time" placeholder="时间"><br>
                   <label >受助资金去向<br></label>
-                  <input name="rec_go" placeholder="资金去向"><br>
-                  <input type="submit"></div>
+                  <input id="rec_go" placeholder="资金去向"><br>
+                  <button id="btn3">提交</button></div>
            </div>
-           <div class="foot">消息提示
-           {%  for message in get_flashed_messages() %}
-               <h1>{{ message}}</h1>
-           {%  endfor %}
-           </div>
-
       </div>
       </form>
 </body>
+
 </html>
+
+
+<script>
+    $("#btn1").click(function () {
+        let don = $('#don').val();
+        let don_id = $('#don_id').val();
+        let don_amount = $('#don_amount').val();
+        let don_time = $('#don_time').val();
+        let data = {
+            data1: JSON.stringify({
+                'don': don,
+                'don_id': don_id,
+                'don_amount': don_amount,
+                'don_time': don_time
+            }),
+        }
+        $.ajax({
+            url: '/yxy1',
+            type: 'post',
+            data: data,
+            dataType: 'json',
+            success: function (res) {
+                alert(res["pro"]);
+            },
+            error: function () {
+                alert("请求失败");
+            }
+        })
+    })
+
+    $("#btn2").click(function () {
+        let chi_id = $('#chi_id').val();
+        let data = {
+            data2: JSON.stringify({
+                'chi_id': chi_id
+            }),
+        }
+        $.ajax({
+            url: '/yxy3',
+            type: 'post',
+            data: data,
+            dataType: 'json',
+            success: function (res) {
+                alert(res["pro"]);
+            },
+            error: function () {
+                alert("请求失败");
+            }
+        })
+    })
+
+    $("#btn3").click(function () {
+        let rec_name = $('#rec_name').val();
+        let rec_id = $('#rec_id').val();
+        let rec_amount = $('#rec_amount').val();
+        let rec_time = $('#rec_time').val();
+        let rec_go = $('#rec_go').val();
+        let data = {
+            data3: JSON.stringify({
+                'rec_name': rec_name,
+                'rec_id': rec_id,
+                'rec_amount': rec_amount,
+                'rec_time': rec_time,
+                'rec_go': rec_go
+            }),
+        }
+        $.ajax({
+            url: '/yxy2',
+            type: 'post',
+            data: data,
+            dataType: 'json',
+            success: function (res) {
+                alert(res["pro"]);
+            },
+            error: function () {
+                alert("请求失败");
+            }
+        })
+    })
+</script>
