@@ -271,17 +271,6 @@ def formula():
             cur.execute(sql)
             issue_information = cur.fetchall()
 
-            # for issue in issue_information:
-            #   base64.b64decode(issue[5])
-            # sql = "select picture from trace "
-            # db.ping(reconnect=True)
-            # cur.execute(sql)
-            # image = cur.fetchall()
-            # for ima in image:
-            #
-            #   fout = open('image.png', 'wb')
-            #   fout.write(ima[0])
-            #   fout.close()
 
 #返回救助金的剩余数目
             sql = "select sum(inflow.money_amount)-sum(outflow.money_amount) from inflow,outflow "
@@ -290,8 +279,22 @@ def formula():
             amount = cur.fetchall()
             #print(amount.type)
             amount1=str(amount[0][0])+'元'
-            cur.close()
-            return render_template('formula.html',issue_information = issue_information,amount1=amount1)
+
+# 返回资金流入情况
+            sql = "select donor,money_amount,record_time from inflow "
+            db.ping(reconnect=True)
+            cur.execute(sql)
+            inflow = cur.fetchall()
+            # print(amount.type)
+
+# 返回资金流出情况
+            sql = "select recipient,money_amount,record_time,funds_go from outflow "
+            db.ping(reconnect=True)
+            cur.execute(sql)
+            outflow = cur.fetchall()
+
+            return render_template('formula.html', issue_information=issue_information, amount1=amount1, inflow=inflow,
+                                   outflow=outflow)
         except Exception as e:
             raise e
 

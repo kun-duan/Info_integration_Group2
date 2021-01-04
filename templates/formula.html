@@ -15,15 +15,59 @@
      <h1>救济库中还剩：<font color="#FF0000" style="font-size:50px">{{ amount1 }}</font></h1>
 
     </div>
+
+<div class="page-header" id="page_header">
+        <h1>资金流入消息公告</h1>
+    </div>
+<div class="issue_list_div" style="border:5px solid black">
+        <ul class="issue_list_ul">
+            {% for inf in inflow %}
+                <li class="issue_list_li" style="border:2px solid black">
+                        <div class="issue_content" >
+                            {{ inf[0] }}向救济库中捐赠了{{ inf[1] }}元！
+                        </div>
+                        <div class="author_info">
+                            <p class="post-info">
+                                <span>捐赠时间：{{ inf[2] }}</span>
+                            </p>
+                        </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+
+
+<div class="page-header" id="page_header">
+        <h1>资金流出消息公告</h1>
+    </div>
+<div class="issue_list_div" style="border:5px solid black">
+        <ul class="issue_list_ul">
+            {% for out in outflow %}
+                <li class="issue_list_li" style="border:2px solid black">
+                        <div class="issue_content" >
+                            {{ out[0] }}向救济库中申请了{{ out[1] }}元！用于{{ out[3] }}!
+                        </div>
+                        <div class="author_info">
+                            <p class="post-info">
+                                <span>受助时间：{{ out[2] }}</span>
+                            </p>
+                        </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+
 <div class="formula_content">
     <div class="page-header" id="page_header">
         <h1>寻亲列表</h1>
     </div>
-    <div class="issue_list_div">
+    <div class="issue_list_div" style="border:5px solid black">
         <ul class="issue_list_ul">
             {% for issue in issue_information %}
                 <li class="issue_list_li">
-                    <div class="issue_div">
+                    <div class="issue_div" style="border:2px solid black">
                         <div class="issue_content" >
 {#                            <article>#}
 {#                                {{ issue[1] }}#}

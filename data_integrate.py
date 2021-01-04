@@ -240,3 +240,4 @@ def execute_insert(the_id):
             else:
                 print("这合理吗？")
     print("所有数据插入成功")
+
